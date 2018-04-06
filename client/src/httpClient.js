@@ -15,7 +15,6 @@ httpClient.setToken = function(token) {
 
 httpClient.getCurrentUser = function() {
 	const token = this.getToken()
-	console.log(token)
 	if(token) return jwtDecode(token)
 	return null
 }
@@ -53,6 +52,14 @@ httpClient.logOut = function() {
 	localStorage.removeItem('token')
 	delete this.defaults.headers.common.token
 	return true
+}
+
+httpClient.getBars = function() {
+	return this({method: 'get', url:'/api/bars'})
+}
+
+httpClient.addBar = function(barInfo) {
+	return this({method: 'post', url:'/api/bars', data: barInfo})
 }
 
 // During initial app load attempt to set a localStorage stored token
